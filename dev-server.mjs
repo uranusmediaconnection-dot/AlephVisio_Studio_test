@@ -17,7 +17,7 @@ for (let i = 0; i < args.length; i++) {
 console.log(`[AlephVisio Studio] Starting Next.js dev server on http://${host}:${port} ...`);
 
 const nextBin = "./node_modules/next/dist/bin/next";
-const child = spawn(process.execPath, [nextBin, "dev", "-p", port, "-H", host], {
+const child = spawn(process.execPath, [nextBin, "dev", "--webpack", "-p", port, "-H", host], {
   stdio: "inherit",
   env: {
     ...process.env,
