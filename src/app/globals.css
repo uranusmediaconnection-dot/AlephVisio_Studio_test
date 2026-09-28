@@ -1,0 +1,161 @@
+@import "tailwindcss";
+
+@theme {
+  /* ── Minimalist & Modern · Premium Light ─────────────────────────
+     bg #F4F4F4 · secondary #FFFFFF · primary text #2E2E2E · accent #4A90E2
+     Note: accent scales run dark→light (300 = readable text, 600 = soft fill) */
+  --color-ink-950: #ececec;
+  --color-ink-900: #f4f4f4;
+  --color-ink-850: #ffffff;
+  --color-ink-800: #fafafa;
+  --color-ink-700: #e4e4e4;
+  --color-ink-600: #d0d0d0;
+
+  --color-mist-100: #2e2e2e;
+  --color-mist-300: #565656;
+  --color-mist-500: #8a8a8a;
+
+  /* Muted blue accent — routing, telemetry, focus */
+  --color-teal-300: #2f6fbd;
+  --color-teal-400: #3d7fd1;
+  --color-teal-500: #4a90e2;
+  --color-teal-600: #a8cbf1;
+  --color-teal-950: #0d1f33;
+
+  /* Deep ruby — ensemble, kilocode, attention */
+  --color-ruby-300: #9a3465;
+  --color-ruby-400: #b04a75;
+  --color-ruby-500: #c96d93;
+  --color-ruby-600: #ecc7d8;
+  --color-ruby-950: #3c0f24;
+
+  /* Forest — success states */
+  --color-forest-300: #35704a;
+  --color-forest-400: #3e7a4f;
+  --color-forest-500: #5f9b70;
+  --color-forest-600: #c8e0cd;
+  --color-forest-950: #102316;
+
+  --color-ember-400: #d93a3f;
+  --color-ember-500: #c22f34;
+
+  --font-display: "Space Grotesk", "Trebuchet MS", system-ui, sans-serif;
+  --font-body: "Manrope", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", "SFMono-Regular", Menlo, monospace;
+}
+
+html {
+  color-scheme: light;
+  scroll-behavior: smooth;
+}
+
+body {
+  background:
+    radial-gradient(1100px 480px at 88% -12%, rgb(74 144 226 / 0.1), transparent 62%),
+    radial-gradient(900px 420px at -8% 0%, rgb(46 46 46 / 0.05), transparent 55%),
+    var(--color-ink-900);
+  min-height: 100vh;
+}
+
+::selection {
+  background: rgb(74 144 226 / 0.28);
+  color: #2e2e2e;
+}
+
+/* ── decorative helpers ─────────────────────────────────────────────── */
+
+.bg-grid {
+  background-image:
+    linear-gradient(rgb(46 46 46 / 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(46 46 46 / 0.045) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+
+.jewel-ring {
+  background: conic-gradient(from 210deg, #4a90e2, #2e2e2e, #a8cbf1, #4a90e2);
+}
+
+.text-jewel {
+  background: linear-gradient(96deg, #2e2e2e 0%, #2f6fbd 55%, #4a90e2 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.panel-glow-teal {
+  box-shadow:
+    0 0 0 1px rgb(74 144 226 / 0.28),
+    0 16px 48px -16px rgb(74 144 226 / 0.35);
+}
+.panel-glow-ruby {
+  box-shadow:
+    0 0 0 1px rgb(154 52 101 / 0.25),
+    0 16px 48px -16px rgb(154 52 101 / 0.3);
+}
+
+/* ── scrollbars ─────────────────────────────────────────────────────── */
+.console-scroll::-webkit-scrollbar,
+.slim-scroll::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.console-scroll::-webkit-scrollbar-thumb,
+.slim-scroll::-webkit-scrollbar-thumb {
+  background: var(--color-ink-600);
+  border-radius: 8px;
+}
+.console-scroll::-webkit-scrollbar-thumb:hover,
+.slim-scroll::-webkit-scrollbar-thumb:hover {
+  background: var(--color-teal-500);
+}
+.console-scroll::-webkit-scrollbar-track,
+.slim-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.console-scroll::-webkit-scrollbar-thumb {
+  background: #3a4048;
+}
+.console-scroll::-webkit-scrollbar-thumb:hover {
+  background: #4a90e2;
+}
+
+/* ── micro animations ───────────────────────────────────────────────── */
+@keyframes caret-blink {
+  0%, 45% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+.caret::after {
+  content: "▍";
+  color: #7db4f0;
+  animation: caret-blink 1.1s steps(1) infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(0.6); opacity: 0.45; }
+}
+.pulse-dot {
+  animation: pulse-dot 1.4s ease-in-out infinite;
+}
+
+@keyframes spin-slow {
+  to { transform: rotate(360deg); }
+}
+.spin-slow {
+  animation: spin-slow 14s linear infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+.shimmer-line {
+  background: linear-gradient(90deg, #4a90e2, #2e2e2e, #a8cbf1, #4a90e2);
+  background-size: 200% 100%;
+  animation: shimmer 6s linear infinite;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-teal-500);
+  outline-offset: 2px;
+}

@@ -1,0 +1,40 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: app_db
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    ports:
+      - "5432:5432"
+
+  app:
+    build: .
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      # Secrets are injected at deploy time — never committed.
+      DATABASE_URL: postgresql://postgres:postgres@db:5432/app_db
+      OPENROUTER_API_KEY: ${OPENROUTER_API_KEY}
+      KILOCODE_API_KEY: ${KILOCODE_API_KEY}
+      KILOCODE_BASE_URL: ${KILOCODE_BASE_URL:-https://api.kilo.ai/api/gateway}
+      APP_ENCRYPTION_KEY: ${APP_ENCRYPTION_KEY}
+      NEXT_PUBLIC_APP_NAME: ${NEXT_PUBLIC_APP_NAME:-AlephVisio Studio}
+    ports:
+      - "3000:3000"
+    command: sh -c "npx drizzle-kit push && node server.js"
+
+volumes:
+  pgdata:
